@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- script de A-Frane version1 1.0.0 -->
+<script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+<!-- script de AR.JS con soporte de marker + location -->
+<script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
+<script src="gesture-detector.js"></script>
+<script src="gesture-handler.js"></script>
+<style>
+    h1 {
+      position: absolute;
+      bottom: 30px;
+      left: 40%;
+      left: calc( 50% - 160px );
+      margin: 0;
+      font: 28px 'Voces', sans-serif;
+      color: #ffff;
+      text-align: center;
+    }
+</style>
+</head>
+<body style="margin : 0px; overflow: hidden;">
+<a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: 
+mono_and_matrix; matrixCodeType: 3x3;"
+renderer="logarithmicDepthBuffer: true;" vr-mode-ui="enabled: false" gesture-detector 
+id="scene">
+ <a-assets>
+ <a-asset-item id="modelo" src="maple_tree.glb"></a-asset-item>
+<a-asset-item id="modelo3" src="rihnoceros (1).glb"></a-asset-item>
+<a-asset-item id="modelo4" src="jaguar.glb"></a-asset-item>
+<a-asset-item id="modelo8" src="duck-duck.glb"></a-asset-item>
+<a-asset-item id="modelo9" src="giraffe.glb"></a-asset-item>
+<a-asset-item id="modelo12" src="owl.glb"></a-asset-item>
+
+<audio id="sound" src="la-atmosfera_4.mp3" preload="auto"></audio>
+<audio id="sound2" src="rinoceronte.mp3" preload="auto"></audio>
+<audio id="sound3" src="LION1.mp3" preload="auto"></audio>
+<audio id="sound4" src="landing-in-water-ducks.mp3" preload="auto"></audio>
+<audio id="sound5" src="jirafa.mp3" preload="auto"></audio>
+<audio id="sound6" src="buho.mp3" preload="auto"></audio>
+ </a-assets>
+<a-marker id="arbol" type="pattern" url="pattern-transparent-mountain-forest-landscape-mountains-trees-forest-65436ce3759d06.9478485216989176034818.patt" raycaster="objects: .clickable" emitevents="true"
+ cursor="fuse: false; rayOrigin: mouse;">
+ <a-entity
+ gltf-model="#modelo" scale="0.09 0.09 0.09" position="0 0 0" rotation="18 180 18" class="clickable" gesture-handler soundhandler>
+ </a-entity>
+ </a-marker>
+ <a-marker id="rinoceronte" type="barcode" value="5" raycaster="objects: .clickable" emitevents="true"
+ cursor="fuse: false; rayOrigin: mouse;">
+ <a-entity
+ gltf-model="#modelo3" scale="1 1 1" position=" 0 0 0" class="clickable" gesture-handler soundhandler>
+ </a-entity>
+ </a-marker>
+ <a-marker id="jaguar" type="barcode" value="7" raycaster="objects: .clickable" emitevents="true"
+ cursor="fuse: false; rayOrigin: mouse;">
+ <a-entity text="value: Jaguar;"></a-entity>
+ <a-entity
+ gltf-model="#modelo4" scale="2 2 2" class="clickable" gesture-handler soundhandler animation="play">
+ </a-entity>
+</a-marker>
+<a-marker id="patos" type="barcode" value="8" raycaster="objects: .clickable" emitevents="true"
+cursor="fuse: false; rayOrigin: mouse;">
+<a-entity
+gltf-model="#modelo8" scale="0.80 0.80 0.80" rotation="0 90 0" class="clickable" gesture-handler soundhandler animation__rotate="property: rotation; dur: 29000; easing: linear; dir: normal; from: 0 0 0; to: 0 360 0; loop: true">
+</a-entity>
+</a-marker>
+<a-marker id="jirafa" type="barcode" value="10" raycaster="objects: .clickable" emitevents="true"
+cursor="fuse: false; rayOrigin: mouse;">
+<a-entity
+gltf-model="#modelo9" scale="2 2 2" rotation="0 0 90" class="clickable" gesture-handler soundhandler animation__rotate="property: rotation; dur: 29000; easing: linear; dir: normal; from: 0 0 0; to: 0 360 0; loop: true">
+</a-entity>
+</a-marker>
+<a-marker id="buho" type="barcode" value="12" raycaster="objects: .clickable" emitevents="true"
+cursor="fuse: false; rayOrigin: mouse;">
+<a-entity
+gltf-model="#modelo12" scale="2 2 2" rotation="0 300 0"  class="clickable" gesture-handler soundhandler></a-entity>
+</a-marker>
+<a-entity id="audio1" sound="src: #sound" autoplay="false"></a-entity>
+<a-entity id="audio2"  sound="src: #sound2" autoplay="false"></a-entity>
+<a-entity id="audio3"  sound="src: #sound3" autoplay="false"></a-entity>
+<a-entity id="audio4"  sound="src: #sound4" autoplay="false"></a-entity>
+<a-entity id="audio5"  sound="src: #sound5" autoplay="false"></a-entity>
+<a-entity id="audio6"  sound="src: #sound6" autoplay="false"></a-entity>
+<h1>
+    <a class="previousPreset" href="#">&larr;</a>
+    <b>Simulador de naturaleza</b>
+    <a class="nextPreset" href="#">&rarr;</a>
+  </h1>
+<a-entity camera></a-entity>
+<script>
+    AFRAME.registerComponent('soundhandler', {
+    tick: function () {
+    var entity = document.querySelector('#audio1');
+    var entity2 = document.querySelector('#audio2');
+    var entity3= document.querySelector('#audio3');
+    var entity4= document.querySelector('#audio4');
+    var entity5= document.querySelector('#audio5');
+    var entity6= document.querySelector('#audio6');
+     
+     
+    if (document.querySelector('#arbol').object3D.visible == true) {
+    entity2.components.sound.pauseSound();
+    entity3.components.sound.pauseSound();
+    entity.components.sound.playSound();
+     
+    } else if (document.querySelector('#rinoceronte').object3D.visible == true) {
+    entity.components.sound.pauseSound();
+    entity3.components.sound.pauseSound();
+    entity2.components.sound.playSound();
+
+    } else if (document.querySelector('#jaguar').object3D.visible == true) {
+    entity.components.sound.pauseSound();
+    entity2.components.sound.pauseSound();
+    entity3.components.sound.playSound(); 
+
+    }else if(document.querySelector('#patos').object3D.visible == true){
+    entity.components.sound.pauseSound();
+    entity2.components.sound.pauseSound();
+    entity3.components.sound.pauseSound();
+    entity4.components.sound.playSound(); 
+
+    }else if(document.querySelector('#jirafa').object3D.visible == true){
+    entity.components.sound.pauseSound();
+    entity2.components.sound.pauseSound();
+    entity3.components.sound.pauseSound();
+    entity4.components.sound.pauseSound();
+    entity5.components.sound.playSound();
+
+
+    }else if(document.querySelector('#buho').object3D.visible == true){
+    entity.components.sound.pauseSound();
+    entity2.components.sound.pauseSound();
+    entity3.components.sound.pauseSound();
+    entity4.components.sound.pauseSound();
+    entity5.components.sound.pauseSound();
+    entity6.components.sound.playSound();
+
+
+    }
+    else{
+    entity.components.sound.pauseSound();
+    entity2.components.sound.pauseSound();
+    entity3.components.sound.pauseSound();
+    entity4.components.sound.pauseSound();
+    entity5.components.sound.pauseSound();
+    entity6.components.sound.pauseSound();
+     } 
+    }
+    });
+    </script>
+</a-scene>
+</body>
+</html>
